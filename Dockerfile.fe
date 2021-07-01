@@ -1,0 +1,12 @@
+FROM nginx:latest
+
+LABEL developer=ElliottLamarArnold
+
+WORKDIR /usr/share/nginx/html
+
+COPY build /usr/share/nginx/html
+
+
+EXPOSE 80
+
+# docker build . -f Dockerfile.fe  -t si3mshady/codepen-clonefe:1

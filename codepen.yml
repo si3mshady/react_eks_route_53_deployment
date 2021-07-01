@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: codepen
+  labels:
+    app: codepen
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: codepen
+    tier: frontend
+  type: LoadBalancer
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: codepen
+  labels:
+    app: codepen
+spec:
+  selector:
+    matchLabels:
+      app: codepen
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: codepen
+        tier: frontend
+    spec:
+      containers:
+      
+      - image: si3mshady/codepen-clonefe:1       
+        name: codepen
+        ports:
+        - containerPort: 80
+          name: codepen
+      
